@@ -1,0 +1,29 @@
+{
+    "name": "openclassrooms/cache-bundle",
+    "description": "Cache Bundle that extends Doctrine\\Cache capabilities",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "OpenClassrooms",
+            "email": "technique@openclassrooms.com"
+        },
+        {
+            "name": "Romain Kuzniak",
+            "email": "romain.kuzniak@openclassrooms.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "OpenClassrooms\\": ""
+        }
+    },
+    "require": {
+        "php": ">=5.3.3",
+        "openclassrooms/cache": "dev-master",
+        "symfony/framework-bundle": "~2.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~3.7"
+    }
+}
