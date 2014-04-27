@@ -34,8 +34,8 @@ class AddCacheProviderPass implements CompilerPassInterface
             case CacheProviderType::MEMCACHED:
                 $cacheProvider = $cacheProviderBuilder
                     ->create(CacheProviderType::MEMCACHED)
-                    ->withHost('openclassrooms.cache.server_host')
-                    ->withPort('openclassrooms.cache.server_port')
+                    ->withHost($container->getParameter('openclassrooms.cache.provider_host'))
+                    ->withPort($container->getParameter('openclassrooms.cache.provider_port'))
                     ->build();
                 break;
             case CacheProviderType::REDIS:

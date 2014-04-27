@@ -21,56 +21,38 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('openclassrooms_cache');
         $rootNode
             ->children()
-                ->scalarNode('default_lifetime')
-                    ->defaultValue(0)
+                ->arrayNode('provider')
+                ->beforeNormalization()
+                    ->ifString()
+                    ->then(function($v) { return array($v => array()); })
+                ->end()
+                    ->children()
+                        ->append($this->addArrayNode())
+                        ->append($this->addMemcacheNode())
+                        ->append($this->addMemcachedNode())
+                        ->append($this->addRedisNode())
+                    ->end()
                 ->end()
             ->end()
             ->children()
-                ->arrayNode('provider')
-//                    ->beforeNormalization()
-//                    ->ifString()
-//                        ->then(function($v) { return array('type'=> $v); })
-//                    ->end()
-//
-//                    ->useAttributeAsKey('type')
-//                    ->children()
-//                    ->prototype('array')
-                        ->children()
-                            ->append($this->addRedisNode())
-//                            ->arrayNode('type')
-//                            ->beforeNormalization()
-//                                ->ifString()
-//                                    ->then(function($v) { return array('type'=> $v); })
-//                                ->end()
-//                            ->end()
-//                            ->scalarNode('host')->defaultValue('value')->end()
-//                            ->scalarNode('port')->end()
-//                            ->end()
-//                        ->end()
-                    ->end()
-//                ->end()
-            ->end()
-//                ->treatNullLike(array('type'=>'array'))
-//                    ->beforeNormalization()
-//                    ->ifString()
-//                        ->then(function($v) { return array('type' => $v); })
-//                    ->end()
-//                ->prototype('scalar')->end()
-//                ->defaultValue(array('type' => 'array'))->end()
-//                    ->children()
-//                        ->scalarNode('test')->defaultValue(0)->end()
-//                    ->end()
-//                ->end()
-//            ->end()
-        ->end();
-
-//                        ->append($this->addMemcacheNode())
-
-//                        ->append($this->addRedisNode())
-//                    ->end()
-//                ->end()
-//            ->end();
+                ->scalarNode('default_lifetime')
+                    ->defaultValue(0)
+                ->end()
+            ->end();
         return $treeBuilder;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return \Symfony\Component\Config\Definition\Builder\TreeBuilder
+     */
+    private function addArrayNode()
+    {
+        $builder = new TreeBuilder();
+        $node = $builder->root('array');
+
+        return $node;
     }
 
     /**

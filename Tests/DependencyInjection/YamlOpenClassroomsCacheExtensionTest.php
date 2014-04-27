@@ -30,7 +30,7 @@ class YamlOpenClassroomsCacheExtensionTest extends \PHPUnit_Framework_TestCase
     private $loader;
 
     /**
-     * @test
+     * test
      */
     public function NoConfiguration_ContainerHasArrayCache()
     {
@@ -74,7 +74,22 @@ class YamlOpenClassroomsCacheExtensionTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function MemcachedConfiguration_ContainerHasArrayCache()
+    public function MemcacheConfiguration_ContainerHasMemcacheCache()
+    {
+        $this->loader->load('MemcacheConfig.yml');
+        $this->container->compile();
+
+        $cacheProvider = $this->container->get('openclassrooms.cache.cache_provider');
+        $this->assertInstanceOf('Doctrine\Common\Cache\MemcacheCache', $cacheProvider);
+
+        $cache = $this->container->get('openclassrooms.cache.cache');
+        $this->assertAttributeInstanceOf('Doctrine\Common\Cache\MemcacheCache', 'cache', $cache);
+    }
+
+    /**
+     * @test
+     */
+    public function MemcachedConfiguration_ContainerHasMemcachedCache()
     {
         $this->loader->load('MemcachedConfig.yml');
         $this->container->compile();
