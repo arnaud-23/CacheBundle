@@ -1,0 +1,6 @@
+openclassrooms_cache:
+    provider:
+        memcached:
+            servers:
+                host: localhost
+                port: 11211

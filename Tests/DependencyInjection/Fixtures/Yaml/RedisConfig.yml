@@ -1,5 +1,5 @@
 openclassrooms_cache:
-    type:
+    provider:
         redis:
             host: localhost
             port: 6379

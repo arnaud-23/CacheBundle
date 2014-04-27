@@ -5,7 +5,6 @@ namespace OpenClassrooms\Bundle\CacheBundle\Tests\DependencyInjection;
 use OpenClassrooms\Bundle\CacheBundle\DependencyInjection\OpenClassroomsCacheExtension;
 use OpenClassrooms\Bundle\CacheBundle\OpenClassroomsCacheBundle;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -26,7 +25,7 @@ class YamlOpenClassroomsCacheExtensionTest extends \PHPUnit_Framework_TestCase
     private $container;
 
     /**
-     * @var Loader
+     * @var YamlFileLoader
      */
     private $loader;
 
@@ -57,13 +56,12 @@ class YamlOpenClassroomsCacheExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertAttributeEquals(10, 'defaultLifetime', $cache);
     }
-
     /**
      * @test
      */
-    public function RedisConfiguration_ContainerHasArrayCache()
+    public function Array_ContainerHasArrayCache()
     {
-        $this->loader->load('RedisConfig.yml');
+        $this->loader->load('ArrayConfig.yml');
         $this->container->compile();
 
         $cacheProvider = $this->container->get('openclassrooms.cache.cache_provider');
@@ -76,10 +74,31 @@ class YamlOpenClassroomsCacheExtensionTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function MemcacheConfiguration_ContainerHasMemcacheCache()
+    public function MemcachedConfiguration_ContainerHasArrayCache()
     {
+        $this->loader->load('MemcachedConfig.yml');
+        $this->container->compile();
+
+        $cacheProvider = $this->container->get('openclassrooms.cache.cache_provider');
         $cache = $this->container->get('openclassrooms.cache.cache');
-        $this->assertAttributeInstanceOf('Doctrine\Common\Cache\MemcacheCache', 'cache', $cache);
+
+        $this->assertInstanceOf('Doctrine\Common\Cache\MemcachedCache', $cacheProvider);
+        $this->assertAttributeInstanceOf('Doctrine\Common\Cache\MemcachedCache', 'cache', $cache);
+    }
+
+    /**
+     * @test
+     */
+    public function RedisConfiguration_ContainerHasRedisCache()
+    {
+        $this->loader->load('RedisConfig.yml');
+        $this->container->compile();
+
+        $cacheProvider = $this->container->get('openclassrooms.cache.cache_provider');
+        $cache = $this->container->get('openclassrooms.cache.cache');
+
+        $this->assertInstanceOf('Doctrine\Common\Cache\RedisCache', $cacheProvider);
+        $this->assertAttributeInstanceOf('Doctrine\Common\Cache\RedisCache', 'cache', $cache);
     }
 
     protected function setUp()
@@ -92,6 +111,7 @@ class YamlOpenClassroomsCacheExtensionTest extends \PHPUnit_Framework_TestCase
         $bundle = new OpenClassroomsCacheBundle();
         $bundle->build($this->container);
 
+        $this->container->setParameter('openclassrooms.cache.provider_builder.class', 'OpenClassrooms\Bundle\CacheBundle\Tests\Cache\CacheProviderBuilderMock');
         $this->loader = new YamlFileLoader($this->container, new FileLocator(__DIR__ . '/Fixtures/Yaml/'));
     }
 }

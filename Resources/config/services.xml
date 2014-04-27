@@ -6,12 +6,16 @@
     <parameters>
         <parameter key="openclassrooms.cache.cache.class">OpenClassrooms\Cache\Cache\CacheImpl</parameter>
         <parameter key="openclassrooms.cache.cache_provider.class">Doctrine\Common\Cache\ArrayCache</parameter>
+        <parameter key="openclassrooms.cache.provider_builder.class">OpenClassrooms\Cache\CacheProvider\CacheProviderBuilderImpl</parameter>
         <!--<parameter key="openclassrooms.cache.default_lifetime">0</parameter>-->
     </parameters>
     <services>
+
+        <service id="openclassrooms.cache.provider_builder" class="%openclassrooms.cache.provider_builder.class%"/>
         <service id="openclassrooms.cache.cache_provider" synthetic="true"/>
         <service id="openclassrooms.cache.cache" class="%openclassrooms.cache.cache.class%">
             <argument type="service" id="openclassrooms.cache.cache_provider"/>
         </service>
     </services>
+
 </container>

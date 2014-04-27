@@ -26,16 +26,70 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
             ->children()
-                ->arrayNode('type')
-                    ->children()
-                        ->append($this->addMemcachedNode())
-                        ->append($this->addRedisNode())
+                ->arrayNode('provider')
+//                    ->beforeNormalization()
+//                    ->ifString()
+//                        ->then(function($v) { return array('type'=> $v); })
+//                    ->end()
+//
+//                    ->useAttributeAsKey('type')
+//                    ->children()
+//                    ->prototype('array')
+                        ->children()
+                            ->append($this->addRedisNode())
+//                            ->arrayNode('type')
+//                            ->beforeNormalization()
+//                                ->ifString()
+//                                    ->then(function($v) { return array('type'=> $v); })
+//                                ->end()
+//                            ->end()
+//                            ->scalarNode('host')->defaultValue('value')->end()
+//                            ->scalarNode('port')->end()
+//                            ->end()
+//                        ->end()
                     ->end()
-                ->end()
+//                ->end()
+            ->end()
+//                ->treatNullLike(array('type'=>'array'))
+//                    ->beforeNormalization()
+//                    ->ifString()
+//                        ->then(function($v) { return array('type' => $v); })
+//                    ->end()
+//                ->prototype('scalar')->end()
+//                ->defaultValue(array('type' => 'array'))->end()
+//                    ->children()
+//                        ->scalarNode('test')->defaultValue(0)->end()
+//                    ->end()
+//                ->end()
+//            ->end()
+        ->end();
+
+//                        ->append($this->addMemcacheNode())
+
+//                        ->append($this->addRedisNode())
+//                    ->end()
+//                ->end()
+//            ->end();
+        return $treeBuilder;
+    }
+
+    /**
+     * @return \Symfony\Component\Config\Definition\Builder\TreeBuilder
+     */
+    private function addMemcacheNode()
+    {
+        $nodeBuilder = new TreeBuilder();
+        $node = $nodeBuilder->root('memcache');
+
+        $node
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->scalarNode('host')->end()
+                ->scalarNode('port')->defaultValue(11211)->end()
+                ->scalarNode('timeout')->defaultValue(0)->end()
             ->end();
 
-
-        return $treeBuilder;
+        return $node;
     }
 
     /**
@@ -44,13 +98,13 @@ class Configuration implements ConfigurationInterface
     private function addMemcachedNode()
     {
         $nodeBuilder = new TreeBuilder();
-        $node = $nodeBuilder->root('redis');
+        $node = $nodeBuilder->root('memcached');
 
         $node
             ->addDefaultsIfNotSet()
             ->children()
-            ->scalarNode('host')->end()
-            ->scalarNode('port')->defaultValue(1121)->end()
+                ->scalarNode('host')->end()
+                ->scalarNode('port')->defaultValue(1121)->end()
             ->end();
 
         return $node;
@@ -67,6 +121,7 @@ class Configuration implements ConfigurationInterface
         $node
             ->addDefaultsIfNotSet()
                 ->children()
+                    ->scalarNode('connection_id')->defaultNull()->end()
                     ->scalarNode('host')->end()
                     ->scalarNode('port')->defaultValue(6379)->end()
                     ->scalarNode('timeout')->defaultValue(0.0)->end()

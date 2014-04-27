@@ -2,7 +2,6 @@
 
 namespace OpenClassrooms\Bundle\CacheBundle\DependencyInjection\Compiler;
 
-use OpenClassrooms\Cache\CacheProvider\CacheProviderBuilderImpl;
 use OpenClassrooms\Cache\CacheProvider\CacheProviderType;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -21,7 +20,7 @@ class AddCacheProviderPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $cacheProviderBuilder = new CacheProviderBuilderImpl();
+        $cacheProviderBuilder = $container->get('openclassrooms.cache.provider_builder');
 
         switch ($container->getParameter('openclassrooms.cache.cache_provider_type')) {
             case CacheProviderType::MEMCACHE:
@@ -42,9 +41,9 @@ class AddCacheProviderPass implements CompilerPassInterface
             case CacheProviderType::REDIS:
                 $cacheProvider = $cacheProviderBuilder
                     ->create(CacheProviderType::REDIS)
-                    ->withHost('openclassrooms.cache.server_host')
-                    ->withPort('openclassrooms.cache.server_port')
-                    ->withTimeout('openclassrooms.cache.server_timeout')
+                    ->withHost($container->getParameter('openclassrooms.cache.provider_host'))
+                    ->withPort($container->getParameter('openclassrooms.cache.provider_port'))
+                    ->withTimeout($container->getParameter('openclassrooms.cache.provider_timeout'))
                     ->build();
                 break;
             case CacheProviderType::ARRAY_CACHE:
