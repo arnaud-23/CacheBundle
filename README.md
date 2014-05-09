@@ -8,10 +8,10 @@ CacheBundle adds features to Doctrine Cache implementation
 - Cache invalidation through namespace strategy
 - CacheProvider Builder
 
-See [Cache](https://github.com/OpenClassrooms/Cache) for more details.
+See [OpenClassrooms/Cache](https://github.com/OpenClassrooms/Cache) for more details.
 
 ## Installation
-The easiest way to install Cache is via [composer](http://getcomposer.org/).
+The easiest way to install CacheBundle is via [composer](http://getcomposer.org/).
 
 Create the following `composer.json` file and run the `php composer.phar install` command to install it.
 
