@@ -34,7 +34,7 @@ $bundles = array(
 ## Configuration
 ```yaml
 openclassrooms_cache:
-    default_lifetime: 10 (optional, default = 0)
+    default_lifetime: 10    (optional, default = 0)
 # Providers
     # array
     provider: array
@@ -42,13 +42,13 @@ openclassrooms_cache:
     provider:
         memcache:
             host: localhost
-            port: 11211 (optional, default = 11211)
-            timeout: 0  (optional, default = 0)
+            port: 11211     (optional, default = 11211)
+            timeout: 0      (optional, default = 0)
     # memcached
     provider:
         memcached:
             host: localhost
-            port: 11211 (optional, default = 11211)
+            port: 11211     (optional, default = 11211)
     # redis            
     provider:
         redis:
