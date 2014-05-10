@@ -25,14 +25,36 @@ Create the following `composer.json` file and run the `php composer.phar install
 ## Configuration
 
 ## Usage
+The configured cache is available as openclassrooms.cache.cache service:
+```php
+$cache = $container->get('openclassrooms.cache.cache');
+
+$cache->fetch($id);
+$cache->fetchWithNamespace($id, $namespaceId);
+$cache->save($id, $data);
+$cache->saveWithNamespace($id, $data, $namespaceId);
+$cache->invalidate($namespaceId);
+
+```
+
+The configured cache provider is available as openclassrooms.cache.cache_provider service:
+```php
+$cacheProvider = $container->get('openclassrooms.cache.cache_provider');
+```
+
+The cache provider builder is available as openclassrooms.cache.cache_provider service:
+```php
+$builder = $container->get('openclassrooms.cache.cache_provider_builder');
+
+// Redis
+$cacheProvider = $builder
+    ->create(CacheProviderType::REDIS)
+    ->withHost('127.0.0.1')
+    ->withPort(6379) // Default 6379
+    ->withTimeout(0.0) // Default 0.0
+    ->build();
+```
+
 See [OpenClassrooms/Cache](https://github.com/OpenClassrooms/Cache) for more details.
 
-```php
-<?php
-require 'vendor/autoload.php';
 
-use OpenClassrooms\Cache\Cache\Cache;
-
-//do things
-```
-<a name="install-nocomposer"/>
