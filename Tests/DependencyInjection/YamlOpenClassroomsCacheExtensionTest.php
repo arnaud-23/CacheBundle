@@ -126,7 +126,7 @@ class YamlOpenClassroomsCacheExtensionTest extends \PHPUnit_Framework_TestCase
         $bundle = new OpenClassroomsCacheBundle();
         $bundle->build($this->container);
 
-        $this->container->setParameter('openclassrooms.cache.provider_builder.class', 'OpenClassrooms\Bundle\CacheBundle\Tests\Cache\CacheProviderBuilderMock');
+        $this->container->setParameter('openclassrooms.cache.cache_provider_builder.class', 'OpenClassrooms\Bundle\CacheBundle\Tests\Cache\CacheProviderBuilderMock');
         $this->loader = new YamlFileLoader($this->container, new FileLocator(__DIR__ . '/Fixtures/Yaml/'));
     }
 }

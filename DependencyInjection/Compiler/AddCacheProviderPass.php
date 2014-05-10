@@ -20,7 +20,7 @@ class AddCacheProviderPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $cacheProviderBuilder = $container->get('openclassrooms.cache.provider_builder');
+        $cacheProviderBuilder = $container->get('openclassrooms.cache.cache_provider_builder');
 
         switch ($container->getParameter('openclassrooms.cache.cache_provider_type')) {
             case CacheProviderType::MEMCACHE:

@@ -15,19 +15,23 @@
         }
     ],
     "autoload": {
-        "psr-0": {
+        "psr-4": {
             "OpenClassrooms\\Bundle\\CacheBundle\\": ""
         }
     },
     "require": {
         "php": ">=5.3.3",
-        "openclassrooms/cache": "1.0.x-dev",
-        "symfony/dependency-injection" : "~2.1",
-        "symfony/config" : "~2.1",
-        "symfony/http-kernel" : "~2.1"
+        "openclassrooms/cache": "1.0.*@dev",
+        "symfony/dependency-injection": "~2.1",
+        "symfony/config": "~2.1",
+        "symfony/http-kernel": "~2.1"
     },
     "require-dev": {
         "phpunit/phpunit": "~3.7"
     },
-    "target-dir": "OpenClassrooms/Bundle/CacheBundle"
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
 }
