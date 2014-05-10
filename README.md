@@ -22,6 +22,11 @@ Create the following `composer.json` file and run the `php composer.phar install
     }
 }
 ```
+## Configuration
+
+## Usage
+See [OpenClassrooms/Cache](https://github.com/OpenClassrooms/Cache) for more details.
+
 ```php
 <?php
 require 'vendor/autoload.php';
