@@ -22,10 +22,42 @@ Create the following `composer.json` file and run the `php composer.phar install
     }
 }
 ```
+And register the bundle in the AppKernel.php file:
+```php
+// in AppKernel::registerBundles()
+$bundles = array(
+    // ...
+    new OpenClassrooms\CacheBundle\OpenClassroomsCacheBundle(),
+    // ...
+);
+```
 ## Configuration
-
+```yaml
+openclassrooms_cache:
+    default_lifetime: 10 (optional, default = 0)
+# Providers
+    # array
+    provider: array
+    # memcache
+    provider:
+        memcache:
+            host: localhost
+            port: 11211 (optional, default = 11211)
+            timeout: 0  (optional, default = 0)
+    # memcached
+    provider:
+        memcached:
+            host: localhost
+            port: 11211 (optional, default = 11211)
+    # redis            
+    provider:
+        redis:
+            host: localhost
+            port: 6379      (optional, default = 6379)
+            timeout: 0.0    (optional, default = 0.0)
+```
 ## Usage
-The configured cache is available as openclassrooms.cache.cache service:
+The configured cache is available as ```openclassrooms.cache.cache``` service:
 ```php
 $cache = $container->get('openclassrooms.cache.cache');
 
@@ -37,12 +69,12 @@ $cache->invalidate($namespaceId);
 
 ```
 
-The configured cache provider is available as openclassrooms.cache.cache_provider service:
+The configured cache provider is available as ```openclassrooms.cache.cache_provider``` service:
 ```php
 $cacheProvider = $container->get('openclassrooms.cache.cache_provider');
 ```
 
-The cache provider builder is available as openclassrooms.cache.cache_provider service:
+The cache provider builder is available as ```openclassrooms.cache.cache_provider``` service:
 ```php
 $builder = $container->get('openclassrooms.cache.cache_provider_builder');
 
