@@ -44,8 +44,6 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @param string $name
-     *
      * @return \Symfony\Component\Config\Definition\Builder\TreeBuilder
      */
     private function addArrayNode()

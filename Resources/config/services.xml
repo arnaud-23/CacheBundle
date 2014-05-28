@@ -8,8 +8,8 @@
         <parameter key="openclassrooms.cache.cache_provider.class">Doctrine\Common\Cache\ArrayCache</parameter>
         <parameter key="openclassrooms.cache.cache_provider_builder.class">OpenClassrooms\Cache\CacheProvider\CacheProviderBuilderImpl</parameter>
     </parameters>
-    <services>
 
+    <services>
         <service id="openclassrooms.cache.cache_provider_builder" class="%openclassrooms.cache.cache_provider_builder.class%"/>
         <service id="openclassrooms.cache.cache_provider" synthetic="true"/>
         <service id="openclassrooms.cache.cache" class="%openclassrooms.cache.cache.class%">
