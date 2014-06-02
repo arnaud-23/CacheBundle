@@ -12,9 +12,10 @@ CacheBundle adds features to Doctrine Cache implementation
 See [OpenClassrooms/Cache](https://github.com/OpenClassrooms/Cache) for more details.
 
 ## Installation
-The easiest way to install CacheBundle is via [composer](http://getcomposer.org/).
+This bundle can be installed using composer:
 
-Create the following `composer.json` file and run the `php composer.phar install` command to install it.
+```composer require jms/serializer-bundle```
+or by adding the package to the composer.json file directly.
 
 ```json
 {
@@ -23,15 +24,18 @@ Create the following `composer.json` file and run the `php composer.phar install
     }
 }
 ```
-And register the bundle in the AppKernel.php file:
+
+After the package has been installed, add the bundle to the AppKernel.php file:
+
 ```php
 // in AppKernel::registerBundles()
 $bundles = array(
     // ...
-    new OpenClassrooms\CacheBundle\OpenClassroomsCacheBundle(),
+    new OpenClassrooms\Bundle\CacheBundle\OpenClassroomsCacheBundle(),
     // ...
 );
 ```
+
 ## Configuration
 ```yaml
 openclassrooms_cache:
