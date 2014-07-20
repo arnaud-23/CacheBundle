@@ -5,8 +5,8 @@ namespace OpenClassrooms\Bundle\CacheBundle\DependencyInjection;
 use OpenClassrooms\Cache\CacheProvider\CacheProviderType;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * @author Romain Kuzniak <romain.kuzniak@openclassrooms.com>
@@ -69,7 +69,7 @@ class OpenClassroomsCacheExtension extends Extension
      */
     public function getAlias()
     {
-        return 'openclassrooms_cache';
+        return 'open_classrooms_cache';
     }
 
 }
