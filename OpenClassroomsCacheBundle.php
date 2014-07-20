@@ -2,7 +2,6 @@
 
 namespace OpenClassrooms\Bundle\CacheBundle;
 
-use OpenClassrooms\Bundle\CacheBundle\DependencyInjection\Compiler\AddCacheProviderPass;
 use OpenClassrooms\Bundle\CacheBundle\DependencyInjection\Compiler\AddDefaultLifetimePass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -16,7 +15,6 @@ class OpenClassroomsCacheBundle extends Bundle
     {
         parent::build($container);
 
-        $container->addCompilerPass(new AddCacheProviderPass());
         $container->addCompilerPass(new AddDefaultLifetimePass());
     }
 
