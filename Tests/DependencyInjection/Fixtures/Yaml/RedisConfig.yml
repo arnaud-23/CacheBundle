@@ -1,4 +1,4 @@
-openclassrooms_cache:
+open_classrooms_cache:
     provider:
         redis:
             host: localhost
