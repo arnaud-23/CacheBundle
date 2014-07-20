@@ -118,10 +118,10 @@ class YamlOpenClassroomsCacheExtensionTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->extension = new OpenClassroomsCacheExtension();
         $this->container = new ContainerBuilder();
+        $this->extension = new OpenClassroomsCacheExtension();
         $this->container->registerExtension($this->extension);
-        $this->container->loadFromExtension('openclassrooms_cache');
+        $this->container->loadFromExtension('open_classrooms_cache');
 
         $bundle = new OpenClassroomsCacheBundle();
         $bundle->build($this->container);
