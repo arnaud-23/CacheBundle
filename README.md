@@ -38,7 +38,7 @@ $bundles = array(
 
 ## Configuration
 ```yaml
-openclassrooms_cache:
+open_classrooms_cache:
     default_lifetime: 10    (optional, default = 0)
 # Providers
     # array
